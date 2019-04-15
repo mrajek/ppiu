@@ -11,8 +11,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageViewBuilder;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import javax.swing.text.html.ImageView;
 import java.io.IOException;
 
 public class SingUpController {
@@ -54,9 +57,18 @@ public class SingUpController {
     private Button bt_back;
 
     @FXML
+    private Button bt_showPass;
+
+    @FXML
+    private TextField tf_newPass;
+
+    @FXML
+    private ImageView imgShow;
+
+    @FXML
     void BackAction(ActionEvent event) throws IOException {
         Stage backStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/view/loginView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/startView.fxml"));
         backStage.setTitle("SalvAction");
         backStage.setScene(new Scene(root));
         backStage.show();
@@ -68,5 +80,19 @@ public class SingUpController {
     void SingUpAction(ActionEvent event) {
 
     }
+    @FXML
+    void ShowPass(MouseEvent event) {
+        pf_newPass.setVisible(false);
+        tf_newPass.setText(pf_newPass.getText());
+        tf_newPass.setVisible(true);
+    }
 
+    @FXML
+    void HidePass(MouseEvent event) {
+        tf_newPass.setVisible(false);
+        pf_newPass.setVisible(true);
+    }
+        /*pf_newPass.setVisible(false);
+        tf_newPass.setText(pf_newPass.getText());
+        tf_newPass.setVisible(true);*/
 }
