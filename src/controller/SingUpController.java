@@ -11,11 +11,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.ImageViewBuilder;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import javax.swing.text.html.ImageView;
+
+import java.io.File;
 import java.io.IOException;
 
 public class SingUpController {
@@ -85,14 +87,15 @@ public class SingUpController {
         pf_newPass.setVisible(false);
         tf_newPass.setText(pf_newPass.getText());
         tf_newPass.setVisible(true);
+        Image image = new Image("img/showPass.png");
+        imgShow.setImage(image);
     }
 
     @FXML
     void HidePass(MouseEvent event) {
         tf_newPass.setVisible(false);
         pf_newPass.setVisible(true);
+        Image image = new Image("img/hidePass.png");
+        imgShow.setImage(image);
     }
-        /*pf_newPass.setVisible(false);
-        tf_newPass.setText(pf_newPass.getText());
-        tf_newPass.setVisible(true);*/
 }
