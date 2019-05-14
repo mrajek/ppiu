@@ -17,7 +17,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
-import java.io.File;
 import java.io.IOException;
 
 public class SingUpController {
