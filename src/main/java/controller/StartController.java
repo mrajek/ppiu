@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import service.LoginService;
 
 import java.io.IOException;
 
@@ -20,6 +21,8 @@ public class StartController {
     @FXML
     private Button bt_StartSingUp;
 
+    public LoginService loginService;
+
     @FXML
     void StartLogInAction(ActionEvent event) throws IOException {
         Stage loginStage = new Stage();
@@ -27,8 +30,7 @@ public class StartController {
         loginStage.setTitle("SalvAction");
         loginStage.setScene(new Scene(root));
         loginStage.show();
-        Stage primaryStage = (Stage) bt_StartLogIn.getScene().getWindow();
-        primaryStage.close();
+        loginService.closeStage(bt_StartLogIn);
     }
 
     @FXML
@@ -38,8 +40,10 @@ public class StartController {
         registerStage.setTitle("SalvAction");
         registerStage.setScene(new Scene(root));
         registerStage.show();
-        Stage primaryStage = (Stage) bt_StartSingUp.getScene().getWindow();
-        primaryStage.close();
+        loginService.closeStage(bt_StartSingUp);
     }
+    public void initialize() {
+        loginService = new LoginService();
 
+    }
 }
