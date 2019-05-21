@@ -19,6 +19,7 @@ import service.SingUpService;
 import util.DBConnector;
 
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -67,11 +68,10 @@ public class SingUpController {
     @FXML
     private ImageView imgShow;
 
-    //public LoginService loginService;
-    public SingUpService singUpService;
 
     @FXML
-    void BackAction(ActionEvent event) throws IOException {
+    void BackAction(ActionEvent event) throws Exception {
+        StartController.singUpService.sendMail();
         Stage backStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/startView.fxml"));
         backStage.setTitle("SalvAction");
@@ -84,8 +84,8 @@ public class SingUpController {
     void SingUpAction(ActionEvent event) throws IOException, SQLException {
         RadioButton selectedRadioButton = (RadioButton) this.sex.getSelectedToggle();
         String gender = selectedRadioButton.getText();
-        this.singUpService.singUp(this.tf_firstName.getText(), this.tf_lastName.getText(), gender, this.tf_email.getText(), this.tf_newLogin.getText(), this.pf_newPass.getText());
-        singUpService.changeStage();
+        StartController.singUpService.singUp(this.tf_firstName.getText(), this.tf_lastName.getText(), gender, this.tf_email.getText(), this.tf_newLogin.getText(), this.pf_newPass.getText());
+        StartController.singUpService.changeStage();
         StartController.loginService.closeStage(bt_register);
     }
     @FXML
@@ -103,9 +103,5 @@ public class SingUpController {
         pf_newPass.setVisible(true);
         Image image = new Image("img/hidePass.png");
         imgShow.setImage(image);
-    }
-    public void initialize() throws SQLException {
-        //loginService = new LoginService();
-        singUpService = new SingUpService();
     }
 }

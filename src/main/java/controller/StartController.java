@@ -48,6 +48,8 @@ public class StartController {
     public static DBConnector dbConnector;
     public static Connection connection;
     public static LoginService loginService;
+    public static SingUpService singUpService;
+
     public void initialize() throws SQLException {
         loginService = new LoginService();
         dbConnector = new DBConnector();

@@ -64,10 +64,6 @@ public class AddUserController {
     @FXML
     private TextField tf_newPass;
 
-    private DBConnector dbConnector;
-    public LoginService loginService;
-    public static Connection connection;
-    public SingUpService singUpService;
 
     @FXML
     void ShowPass(MouseEvent event) {
@@ -88,17 +84,9 @@ public class AddUserController {
 
 
     @FXML
-    void addAction(ActionEvent event) throws IOException, SQLException {
+    void addAction(ActionEvent event) throws SQLException {
         RadioButton selectedRadioButton = (RadioButton) this.sex.getSelectedToggle();
         String gender = selectedRadioButton.getText();
-        //Tu mi nie dziala
-        this.singUpService.singUp(this.tf_firstName.getText(), this.tf_lastName.getText(), gender, this.tf_email.getText(), this.tf_newLogin.getText(), this.pf_newPass.getText());
-    }
-
-    public void initialize() throws SQLException {
-        dbConnector = new DBConnector();
-        connection = dbConnector.initializeConnection();
-        loginService = new LoginService();
-        singUpService = new SingUpService();
+        StartController.singUpService.singUp(this.tf_firstName.getText(), this.tf_lastName.getText(), gender, this.tf_email.getText(), this.tf_newLogin.getText(), this.pf_newPass.getText());
     }
 }
