@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class SingUpController {
+public class AddUserController {
 
     @FXML
     private PasswordField pf_newPassRepeat;
@@ -56,38 +56,19 @@ public class SingUpController {
     private Button bt_register;
 
     @FXML
-    private Button bt_back;
-
-    @FXML
     private Button bt_showPass;
-
-    @FXML
-    private TextField tf_newPass;
 
     @FXML
     private ImageView imgShow;
 
-    //public LoginService loginService;
+    @FXML
+    private TextField tf_newPass;
+
+    private DBConnector dbConnector;
+    public LoginService loginService;
+    public static Connection connection;
     public SingUpService singUpService;
 
-    @FXML
-    void BackAction(ActionEvent event) throws IOException {
-        Stage backStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/view/startView.fxml"));
-        backStage.setTitle("SalvAction");
-        backStage.setScene(new Scene(root));
-        backStage.show();
-        StartController.loginService.closeStage(bt_back);
-    }
-
-    @FXML
-    void SingUpAction(ActionEvent event) throws IOException, SQLException {
-        RadioButton selectedRadioButton = (RadioButton) this.sex.getSelectedToggle();
-        String gender = selectedRadioButton.getText();
-        this.singUpService.singUp(this.tf_firstName.getText(), this.tf_lastName.getText(), gender, this.tf_email.getText(), this.tf_newLogin.getText(), this.pf_newPass.getText());
-        singUpService.changeStage();
-        StartController.loginService.closeStage(bt_register);
-    }
     @FXML
     void ShowPass(MouseEvent event) {
         pf_newPass.setVisible(false);
@@ -104,8 +85,20 @@ public class SingUpController {
         Image image = new Image("img/hidePass.png");
         imgShow.setImage(image);
     }
+
+
+    @FXML
+    void addAction(ActionEvent event) throws IOException, SQLException {
+        RadioButton selectedRadioButton = (RadioButton) this.sex.getSelectedToggle();
+        String gender = selectedRadioButton.getText();
+        //Tu mi nie dziala
+        this.singUpService.singUp(this.tf_firstName.getText(), this.tf_lastName.getText(), gender, this.tf_email.getText(), this.tf_newLogin.getText(), this.pf_newPass.getText());
+    }
+
     public void initialize() throws SQLException {
-        //loginService = new LoginService();
+        dbConnector = new DBConnector();
+        connection = dbConnector.initializeConnection();
+        loginService = new LoginService();
         singUpService = new SingUpService();
     }
 }

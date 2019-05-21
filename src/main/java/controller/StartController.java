@@ -8,8 +8,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import service.LoginService;
+import service.SingUpService;
+import util.DBConnector;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 
 public class StartController {
@@ -20,6 +25,7 @@ public class StartController {
     @FXML
     private Button bt_StartSingUp;
 
+
     @FXML
     void StartLogInAction(ActionEvent event) throws IOException {
         Stage loginStage = new Stage();
@@ -27,8 +33,7 @@ public class StartController {
         loginStage.setTitle("SalvAction");
         loginStage.setScene(new Scene(root));
         loginStage.show();
-        Stage primaryStage = (Stage) bt_StartLogIn.getScene().getWindow();
-        primaryStage.close();
+        loginService.closeStage(bt_StartLogIn);
     }
 
     @FXML
@@ -38,8 +43,15 @@ public class StartController {
         registerStage.setTitle("SalvAction");
         registerStage.setScene(new Scene(root));
         registerStage.show();
-        Stage primaryStage = (Stage) bt_StartSingUp.getScene().getWindow();
-        primaryStage.close();
+        loginService.closeStage(bt_StartSingUp);
     }
-
+    public static DBConnector dbConnector;
+    public static Connection connection;
+    public static LoginService loginService;
+    public void initialize() throws SQLException {
+        loginService = new LoginService();
+        dbConnector = new DBConnector();
+        connection = dbConnector.initializeConnection();
+        loginService = new LoginService();
+    }
 }
