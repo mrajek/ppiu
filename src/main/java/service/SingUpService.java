@@ -51,7 +51,7 @@ public class SingUpService {
             properties.put("mail.smtp.host", "smtp.gmail.com");
             properties.put("mail.smtp.port", "587");
 
-            final String ac = "kacwalski2@wgmail.com";
+            final String ac = "kacwalski2@gmail.com";
             final String pass = "volume12134";
             Session session = Session.getInstance(properties, new Authenticator() {
                 @Override
