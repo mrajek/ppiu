@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -14,7 +15,6 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class LoginController {
 
@@ -31,16 +31,27 @@ public class LoginController {
     @FXML
     private PasswordField pf_password;
 
-
+    int i =0;
     @FXML
-    void loginAction(ActionEvent event) throws SQLException, IOException{
-        StartController.loginService.logIn(this.tf_login.getText(), this.pf_password.getText(), this.tf_login);
+    void loginAction(ActionEvent event){
+        if(i <3)
+            StartController.loginService.logIn(this.tf_login.getText(), this.pf_password.getText(), this.tf_login);
+        i++;
+        if(i >=3){
+            getAlert();
+        }
     }
 
     @FXML
-    void keyLoginAction(KeyEvent event) throws SQLException, IOException{
-        if (event.getCode() == KeyCode.ENTER) {
-            StartController.loginService.logIn(this.tf_login.getText(), this.pf_password.getText(), this.tf_login);
+    void keyLoginAction(KeyEvent event) {
+        if(i < 3) {
+            if (event.getCode() == KeyCode.ENTER) {
+                StartController.loginService.logIn(this.tf_login.getText(), this.pf_password.getText(), this.tf_login);
+            }
+        }
+        i++;
+        if(i >=3){
+            getAlert();
         }
     }
     @FXML
@@ -51,5 +62,13 @@ public class LoginController {
         registerStage.setScene(new Scene(root));
         registerStage.show();
         StartController.loginService.closeStage(bt_singUp);
+    }
+    public void getAlert(){
+        bt_login.setDisable(true);
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setContentText("Dłąd logowania");
+        a.setHeaderText("Trzy błedne próby");
+        a.setTitle("Spróboj ponownie pozniej!");
+        a.showAndWait();
     }
 }

@@ -31,13 +31,9 @@ public class EditEventController {
 
     private ObservableList<String> options = FXCollections.observableArrayList();
 
-    private void fillComboBox() throws SQLException {
-        AdminPanelController.adminService.fillCB(options);
-        cb_event.setItems(options);
-    }
 
     @FXML
-    void backAction(ActionEvent event) throws IOException {
+    void backAction(ActionEvent event) {
         StartController.loginService.getAdminView();
         StartController.loginService.closeStage(bt_back);
     }
@@ -45,20 +41,23 @@ public class EditEventController {
     @FXML
     void editAction(ActionEvent event) throws SQLException {
         AdminPanelController.adminService.editEvent(this.cb_event.getSelectionModel().getSelectedItem(), this.ta_agenda.getText(), this.tf_data.getText());
+        StartController.loginService.getAdminView();
+        StartController.loginService.closeStage(bt_editEvent);
     }
 
-    private void setValues() throws SQLException {
+    private void setValues() {
         if(cb_event.getSelectionModel().getSelectedItem() != "") {
             AdminPanelController.adminService.getValues(cb_event.getSelectionModel().getSelectedItem(), ta_agenda, tf_data);
         }
     }
 
     @FXML
-    void getValuesAction(ActionEvent event) throws SQLException {
+    void getValuesAction(ActionEvent event) {
         setValues();
     }
 
-    public void initialize() throws SQLException {
-        fillComboBox();
+    public void initialize() {
+        AdminPanelController.adminService.fillCB(options);
+        cb_event.setItems(options);
     }
 }

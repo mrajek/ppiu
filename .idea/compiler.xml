@@ -20,7 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Rajek" target="1.5" />
+      <module name="Rajek" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -46,14 +46,24 @@ public class AdminPanelController {
     @FXML
     private Button bt_usunEvent;
 
+    @FXML
+    private ComboBox<String> cb_event;
+
+    @FXML
+    private Button bt_confirm;
+
+    @FXML
+    private Button bt_reject;
+
+    @FXML
+    private ComboBox<String> cb_users;
+
+
     public static AdminService adminService;
 
     private ObservableList<String> options = FXCollections.observableArrayList();
+    private ObservableList<String> users = FXCollections.observableArrayList();
 
-    private void fillComboBox() throws SQLException {
-        adminService.fillCB(options);
-        cb_events.setItems(options);
-    }
 
     @FXML
     void dodajAction(ActionEvent event) throws IOException {
@@ -71,7 +81,7 @@ public class AdminPanelController {
     }
 
     @FXML
-    void usunAction(ActionEvent event) throws SQLException {
+    void usunAction(ActionEvent event) {
         adminService.remove(tf_loginUsun.getText());
     }
 
@@ -86,8 +96,10 @@ public class AdminPanelController {
     }
 
     @FXML
-    void usunEvent(ActionEvent event) {
+    void usunEvent(ActionEvent event) throws IOException {
         adminService.removeEvent(this.cb_events.getSelectionModel().getSelectedItem());
+        StartController.loginService.getAdminView();
+        StartController.loginService.closeStage(bt_usunEvent);
     }
 
     @FXML
@@ -99,10 +111,26 @@ public class AdminPanelController {
         backStage.show();
         StartController.loginService.closeStage(bt_edytujEvent);
     }
+    @FXML
+    void rejectAction(ActionEvent event) {
+        adminService.rejectEnrollment(cb_event.getSelectionModel().getSelectedItem(), cb_users.getSelectionModel().getSelectedItem());
+    }
 
+    @FXML
+    void confirmAction(ActionEvent event) {
+        adminService.confirmEnrollment(cb_event.getSelectionModel().getSelectedItem(), cb_users.getSelectionModel().getSelectedItem());
+    }
 
-    public void initialize() throws SQLException {
+    @FXML
+    void selectEvent(ActionEvent event) {
+        adminService.getUsers(cb_event.getSelectionModel().getSelectedItem(), users);
+        cb_users.setItems(users);
+    }
+
+    public void initialize() {
         adminService = new AdminService();
-        fillComboBox();
+        adminService.fillCB(options);
+        cb_events.setItems(options);
+        cb_event.setItems(options);
     }
 }
