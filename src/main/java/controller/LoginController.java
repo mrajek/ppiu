@@ -63,7 +63,7 @@ public class LoginController {
         registerStage.show();
         StartController.loginService.closeStage(bt_singUp);
     }
-    public void getAlert(){
+    private void getAlert(){
         bt_login.setDisable(true);
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setContentText("Dłąd logowania");

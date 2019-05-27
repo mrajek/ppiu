@@ -40,11 +40,11 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-      <VBox prefHeight="200.0" prefWidth="100.0">
+      <VBox prefHeight="200.0" prefWidth="100.0" visible="false">
          <children>
-            <Label fx:id="user_name" prefHeight="17.0" prefWidth="198.0" text="Label" visible="false" />
-            <Label fx:id="lb_eventId" text="Label" visible="false" />
-            <Label fx:id="user_id" text="Label" visible="false" />
+            <Label fx:id="user_name" prefHeight="17.0" prefWidth="198.0" text="Label" />
+            <Label fx:id="lb_eventId" text="Label" />
+            <Label fx:id="user_id" text="Label" />
          </children>
       </VBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="9">

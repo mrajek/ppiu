@@ -5,23 +5,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import service.SingUpService;
 
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Properties;
+
 
 public class SingUpController {
 
@@ -67,36 +62,7 @@ public class SingUpController {
     @FXML
     private ImageView imgShow;
 
-    public void sendMail(String mail) {
-        try {
-            Properties properties = new Properties();
-            properties.put("mail.smtp.auth", "true");
-            properties.put("mail.smtp.starttls.enable", "true");
-            properties.put("mail.smtp.host", "smtp.gmail.com");
-            properties.put("mail.smtp.port", "587");
-
-            final String ac = "kacwalski2@gmail.com";
-            final String pass = "volume12134";
-            Session session = Session.getInstance(properties, new Authenticator() {
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(ac, pass);
-                }
-            });
-
-
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(ac));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail));
-            message.setSubject("First Email");
-            message.setText("Test");
-
-            Transport.send(message);
-            System.out.println("Done");
-        } catch (Exception e){
-            System.out.println(e);
-        }
-    }
+    private static SingUpService singUpService;
 
     @FXML
     void BackAction(ActionEvent event) throws Exception {
@@ -112,9 +78,63 @@ public class SingUpController {
     void SingUpAction(ActionEvent event) throws IOException, SQLException {
         RadioButton selectedRadioButton = (RadioButton) this.sex.getSelectedToggle();
         String gender = selectedRadioButton.getText();
-        StartController.singUpService.singUp(this.tf_firstName.getText(), this.tf_lastName.getText(), gender, this.tf_email.getText(), this.tf_newLogin.getText(), this.pf_newPass.getText());
-        sendMail(tf_email.getText());
-        StartController.singUpService.changeStage();
+        if(tf_firstName.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Błąd danych", "Nie podano email'a");
+            return;
+        }
+        if(!tf_firstName.getText().matches("^[A-Z][a-z]+")){
+            showAlert(Alert.AlertType.ERROR, "Błąd danych", "Imię musi zaczynać się z wielkiej litery i nie powinno zawierać cyfr!");
+            return;
+        }
+        if(tf_lastName.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Błąd danych", "Nie podano nazwiska!");
+            return;
+        }
+        if(!tf_firstName.getText().matches("^[A-Z][a-z]+")){
+            showAlert(Alert.AlertType.ERROR, "Błąd danych", "Nazwisko musi zaczynać się z wielkiej litery i nie powinno zawierać cyfr!");
+            return;
+        }
+        if(!(rb_sexMale.isSelected() || rb_sexFemale.isSelected())){
+            showAlert(Alert.AlertType.ERROR, "Błąd danych", "Wybierz płeć");
+            return;
+        }
+
+        if (tf_email.getText().isEmpty()){
+            showAlert(Alert.AlertType.ERROR, "Błąd danych", "Podaj maila!");
+            return;
+        }
+
+        if (!tf_email.getText().matches("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$")){
+            showAlert(Alert.AlertType.ERROR, "Błąd danych", "Taki mail nie istenieje!");
+            return;
+        }
+
+        if(tf_newLogin.getText().isEmpty()){
+            showAlert(Alert.AlertType.ERROR, "Błąd danych", "Podaj Login");
+            return;
+        }
+
+        if(pf_newPass.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Błąd danych", "Podaj hasło!");
+            return;
+        }
+        if(pf_newPass.getText().length() < 8) {
+            showAlert(Alert.AlertType.WARNING, "Błąd danych", "Hasło powinno zawierać conajmniej 8 znaków");
+            return;
+        }
+        if(pf_newPassRepeat.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Błąd danych", "Potwierdz hasło!");
+            return;
+        }
+        if(!pf_newPass.getText().equals(pf_newPassRepeat.getText())) {
+            showAlert(Alert.AlertType.ERROR, "Błąd danych", "Hasła są różne!");
+            return;
+        }
+
+        singUpService.singUp(this.tf_firstName.getText(), this.tf_lastName.getText(), gender, this.tf_email.getText(), this.tf_newLogin.getText(), this.pf_newPass.getText());
+        singUpService.sendMail(tf_email.getText());
+        showAlert(Alert.AlertType.INFORMATION, "Dokonano rejestracji", "Na podanego maila został wysłąny mail w celu potwierdzenia rejestracji!");
+        singUpService.changeStage();
         StartController.loginService.closeStage(bt_register);
     }
     @FXML
@@ -132,5 +152,18 @@ public class SingUpController {
         pf_newPass.setVisible(true);
         Image image = new Image("img/hidePass.png");
         imgShow.setImage(image);
+    }
+
+    public void initialize(){
+        singUpService = new SingUpService();
+
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

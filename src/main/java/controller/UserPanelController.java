@@ -51,6 +51,7 @@ public class UserPanelController implements Initializable {
     private ComboBox<String> cb_wyzywienie;
 
     private static UserService userService;
+    private  static  AdminService adminService;
 
     private ObservableList<String> participation = FXCollections.observableArrayList("Słuchacz", "Autor", "Sponsor", "Organizator");
     private ObservableList<String> catering = FXCollections.observableArrayList("Bez preferencji", "Wegetarianskie", "Bez glutenu");
@@ -74,8 +75,8 @@ public class UserPanelController implements Initializable {
         cb_uczestnictwo.setItems(participation);
         cb_wyzywienie.setItems(catering);
         userService = new UserService();
-
-        //AdminPanelController.adminService.fillCB(options);
+        adminService = new AdminService();
+        adminService.fillCB(options);
         cb_event.setItems(options);
     }
 

@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import static controller.StartController.*;
+
 public class AddUserController {
 
     @FXML
@@ -64,6 +66,7 @@ public class AddUserController {
     @FXML
     private TextField tf_newPass;
 
+    private static SingUpService singUpService;
 
     @FXML
     void ShowPass(MouseEvent event) {
@@ -87,6 +90,10 @@ public class AddUserController {
     void addAction(ActionEvent event) throws SQLException {
         RadioButton selectedRadioButton = (RadioButton) this.sex.getSelectedToggle();
         String gender = selectedRadioButton.getText();
-        StartController.singUpService.singUp(this.tf_firstName.getText(), this.tf_lastName.getText(), gender, this.tf_email.getText(), this.tf_newLogin.getText(), this.pf_newPass.getText());
+        singUpService.singUp(this.tf_firstName.getText(), this.tf_lastName.getText(), gender, this.tf_email.getText(), this.tf_newLogin.getText(), this.pf_newPass.getText());
+    }
+    public void initialize(){
+        singUpService = new SingUpService();
+
     }
 }

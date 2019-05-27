@@ -5,6 +5,8 @@ import controller.StartController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -42,7 +44,7 @@ public class SingUpService {
         backStage.show();
     }
 
-    public void sendMail() {
+    public void sendMail(String mail) {
         try {
             Properties properties = new Properties();
             properties.put("mail.smtp.auth", "true");
@@ -62,7 +64,7 @@ public class SingUpService {
 
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(ac));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress("mrajek9@gmail.com"));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail));
             message.setSubject("First Email");
             message.setText("Test");
 
@@ -70,5 +72,20 @@ public class SingUpService {
         } catch (Exception e){
             System.out.println(e);
         }
+    }
+    public boolean checkName(TextField tf, Label lb){
+        if(tf.getText().isEmpty() || tf.getText().matches("^[A-Z][a-z]+]")) {
+            lb.setText("To pole nie może być puste!");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkLastName(TextField tf, Label lb){
+        if(tf.getText().isEmpty() || tf.getText().matches("^[A-Z][a-z]+]")) {
+            lb.setText("To pole nie może być puste!");
+            return false;
+        }
+        return true;
     }
 }
