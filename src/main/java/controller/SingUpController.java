@@ -76,10 +76,8 @@ public class SingUpController {
 
     @FXML
     void SingUpAction(ActionEvent event) throws IOException, SQLException {
-        RadioButton selectedRadioButton = (RadioButton) this.sex.getSelectedToggle();
-        String gender = selectedRadioButton.getText();
         if(tf_firstName.getText().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Błąd danych", "Nie podano email'a");
+            showAlert(Alert.AlertType.ERROR, "Błąd danych", "Nie podano imienia!");
             return;
         }
         if(!tf_firstName.getText().matches("^[A-Z][a-z]+")){
@@ -130,7 +128,8 @@ public class SingUpController {
             showAlert(Alert.AlertType.ERROR, "Błąd danych", "Hasła są różne!");
             return;
         }
-
+        RadioButton selectedRadioButton = (RadioButton) this.sex.getSelectedToggle();
+        String gender = selectedRadioButton.getText();
         singUpService.singUp(this.tf_firstName.getText(), this.tf_lastName.getText(), gender, this.tf_email.getText(), this.tf_newLogin.getText(), this.pf_newPass.getText());
         singUpService.sendMail(tf_email.getText());
         showAlert(Alert.AlertType.INFORMATION, "Dokonano rejestracji", "Na podanego maila został wysłąny mail w celu potwierdzenia rejestracji!");

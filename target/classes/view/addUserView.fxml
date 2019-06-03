@@ -103,6 +103,11 @@
                         <Insets right="15.0" />
                     </HBox.margin>
                 </Button>
+            <Button fx:id="bt_back" mnemonicParsing="false" onAction="#backAction" prefHeight="30.0" prefWidth="218.0" text="Powrót">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
             </children>
         </HBox>
         <Button fx:id="bt_showPass" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#ShowPass" onMouseReleased="#HidePass" prefHeight="30.0" prefWidth="30.0" GridPane.columnIndex="2" GridPane.rowIndex="8">

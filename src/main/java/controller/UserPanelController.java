@@ -6,15 +6,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 import service.AdminService;
 import service.UserService;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -50,6 +52,9 @@ public class UserPanelController implements Initializable {
     @FXML
     private ComboBox<String> cb_wyzywienie;
 
+    @FXML
+    private Button bt_logout;
+
     private static UserService userService;
     private  static  AdminService adminService;
 
@@ -70,6 +75,15 @@ public class UserPanelController implements Initializable {
         }
     }
 
+    @FXML
+    void logoutAction(ActionEvent event) throws IOException {
+        Stage registerStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/view/loginView.fxml"));
+        registerStage.setTitle("SalvAction");
+        registerStage.setScene(new Scene(root));
+        registerStage.show();
+        StartController.loginService.closeStage(bt_logout);
+    }
 
     public void initialize(URL location, ResourceBundle resources) {
         cb_uczestnictwo.setItems(participation);

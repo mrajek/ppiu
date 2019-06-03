@@ -2,6 +2,7 @@ package service;
 
 
 import controller.StartController;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
@@ -38,14 +39,21 @@ public class UserService {
             Integer i = preparedStatement1.executeUpdate();
             if(i == 1){
                 System.out.println("Utworzono poprawnie: ");
+                showAlert(Alert.AlertType.INFORMATION, "Potwierdzenie", "Dokonano zapisu na wydarzenie.");
                 return true;
             } else {
-                System.out.println("Błąd tworzenia");
                 return false;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Bląd", "Nie udało się zapisac na wydarzenie, sprawdz formularz");
             return  false;
         }
+    }
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

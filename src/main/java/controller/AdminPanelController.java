@@ -58,6 +58,9 @@ public class AdminPanelController {
     @FXML
     private ComboBox<String> cb_users;
 
+    @FXML
+    private Button bt_logout;
+
 
     public static AdminService adminService;
 
@@ -96,10 +99,11 @@ public class AdminPanelController {
     }
 
     @FXML
-    void usunEvent(ActionEvent event) throws IOException {
+    void usunEvent(ActionEvent event) {
         adminService.removeEvent(this.cb_events.getSelectionModel().getSelectedItem());
-        StartController.loginService.getAdminView();
-        StartController.loginService.closeStage(bt_usunEvent);
+        options.clear();
+        cb_events.setItems(options);
+        cb_event.setItems(options);
     }
 
     @FXML
@@ -114,17 +118,33 @@ public class AdminPanelController {
     @FXML
     void rejectAction(ActionEvent event) {
         adminService.rejectEnrollment(cb_event.getSelectionModel().getSelectedItem(), cb_users.getSelectionModel().getSelectedItem());
+        users.clear();
+        adminService.getUsers(cb_event.getSelectionModel().getSelectedItem(), users);
+        cb_users.setItems(users);
     }
 
     @FXML
     void confirmAction(ActionEvent event) {
         adminService.confirmEnrollment(cb_event.getSelectionModel().getSelectedItem(), cb_users.getSelectionModel().getSelectedItem());
+        users.clear();
+        adminService.getUsers(cb_event.getSelectionModel().getSelectedItem(), users);
+        cb_users.setItems(users);
     }
 
     @FXML
     void selectEvent(ActionEvent event) {
         adminService.getUsers(cb_event.getSelectionModel().getSelectedItem(), users);
         cb_users.setItems(users);
+    }
+
+    @FXML
+    void logoutAction(ActionEvent event) throws IOException {
+        Stage registerStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/view/loginView.fxml"));
+        registerStage.setTitle("SalvAction");
+        registerStage.setScene(new Scene(root));
+        registerStage.show();
+        StartController.loginService.closeStage(bt_logout);
     }
 
     public void initialize() {

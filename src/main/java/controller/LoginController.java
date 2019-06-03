@@ -31,15 +31,16 @@ public class LoginController {
     @FXML
     private PasswordField pf_password;
 
+
+
     int i =0;
     @FXML
     void loginAction(ActionEvent event){
         if(i <3)
             StartController.loginService.logIn(this.tf_login.getText(), this.pf_password.getText(), this.tf_login);
-        i++;
-        if(i >=3){
+        else
             getAlert();
-        }
+        i++;
     }
 
     @FXML
@@ -49,10 +50,9 @@ public class LoginController {
                 StartController.loginService.logIn(this.tf_login.getText(), this.pf_password.getText(), this.tf_login);
             }
         }
-        i++;
-        if(i >=3){
+        else
             getAlert();
-        }
+        i++;
     }
     @FXML
     void registerAction(ActionEvent event) throws IOException {
@@ -63,6 +63,9 @@ public class LoginController {
         registerStage.show();
         StartController.loginService.closeStage(bt_singUp);
     }
+
+
+
     private void getAlert(){
         bt_login.setDisable(true);
         Alert a = new Alert(Alert.AlertType.INFORMATION);

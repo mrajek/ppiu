@@ -132,5 +132,10 @@
             <Insets left="5.0" right="5.0" />
          </GridPane.margin>
       </ComboBox>
+      <Button fx:id="bt_logout" mnemonicParsing="false" onAction="#logoutAction" text="Wyloguj" GridPane.columnIndex="5">
+         <GridPane.margin>
+            <Insets left="5.0" />
+         </GridPane.margin>
+      </Button>
    </children>
 </GridPane>

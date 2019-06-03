@@ -66,6 +66,9 @@ public class AddUserController {
     @FXML
     private TextField tf_newPass;
 
+    @FXML
+    private Button bt_back;
+
     private static SingUpService singUpService;
 
     @FXML
@@ -95,5 +98,15 @@ public class AddUserController {
     public void initialize(){
         singUpService = new SingUpService();
 
+    }
+
+    @FXML
+    void backAction(ActionEvent event) throws IOException {
+        Stage backStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/view/adminPanel.fxml"));
+        backStage.setTitle("SalvAction");
+        backStage.setScene(new Scene(root));
+        backStage.show();
+        StartController.loginService.closeStage(bt_back);
     }
 }

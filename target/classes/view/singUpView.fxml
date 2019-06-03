@@ -126,6 +126,5 @@
          </graphic>
       </Button>
       <TextField fx:id="tf_newPass" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-      <Button fx:id="bt_check" mnemonicParsing="false" onAction="#checkAction" text="Button" GridPane.rowIndex="1" />
    </children>
 </GridPane>

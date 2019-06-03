@@ -4,10 +4,7 @@ import controller.LoginController;
 import controller.StartController;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,9 +17,11 @@ public class AdminService {
             preparedStatement.setString(1, login);
             Integer i = preparedStatement.executeUpdate();
             System.out.println("Usunieto poprawnie");
+            showAlert(Alert.AlertType.INFORMATION, "Potwierdzenie", "Usuniecie uzytkownika powiodlo sie");
             return true;
         }catch(SQLException e){
             System.out.println("Błąd");
+            showAlert(Alert.AlertType.ERROR, "Blad", "Nie udalo sie usunac uzytkownika");
             return false;
         }
     }
@@ -33,9 +32,11 @@ public class AdminService {
         Integer i = preparedStatement.executeUpdate();
         if(i == 1){
             System.out.println("Zresetowano haslo");
+            showAlert(Alert.AlertType.INFORMATION, "Potwierdzenie", "Zresetowano haslo");
             return true;
         } else {
             System.out.println("Błąd");
+            showAlert(Alert.AlertType.ERROR, "Blad", "Nie udalo sie zresetowac hasla");
             return false;
         }
     }
@@ -49,13 +50,14 @@ public class AdminService {
             Integer i = preparedStatement.executeUpdate();
             if(i == 1){
                 System.out.println("Utworzono poprawnie: ");
+                showAlert(Alert.AlertType.INFORMATION, "Potwierdzenie", "Utworzono wydarzenie");
                 return true;
             } else {
                 System.out.println("Błąd tworzenia");
                 return false;
             }
         } catch (SQLException e){
-            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Blad", "Nie udalo sie utworzyc wydarzenia");
             return false;
         }
 
@@ -82,9 +84,10 @@ public class AdminService {
             preparedStatement.setString(1, name);
             Integer i = preparedStatement.executeUpdate();
             System.out.println("Usunieto poprawnie");
+            showAlert(Alert.AlertType.INFORMATION, "Potwierdzenie", "Usunieto wydarzenie");
             return true;
         }catch(SQLException e){
-            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Blad", "Nie udalo sie usunac wydarzenia");
             return false;
         }
     }
@@ -113,14 +116,15 @@ public class AdminService {
         Integer i = preparedStatement.executeUpdate();
         if(i == 1){
             System.out.println("Wprowadzono zmiany");
+            showAlert(Alert.AlertType.INFORMATION, "Potwierdzenie", "Dokonano zmian");
             return true;
         } else {
-            System.out.println("Błąd");
+            showAlert(Alert.AlertType.ERROR, "Blad", "Nie udalo się dokonac zmian");
             return false;
         }
     }
 
-    public boolean rejectEnrollment(String name, String event){
+    public boolean rejectEnrollment(String event, String name){
         try {
             String id_event = null;
             String id_user = null;
@@ -128,7 +132,6 @@ public class AdminService {
             eventId.setString(1, event);
             ResultSet eventRS = eventId.executeQuery();
             if(eventRS.next()) id_event = eventRS.getString(1);
-
 
             PreparedStatement user = StartController.connection.prepareStatement("SELECT * FROM user WHERE name = ?");
             user.setString(1, name);
@@ -141,15 +144,16 @@ public class AdminService {
             Integer i = preparedStatement.executeUpdate();
             if (i == 1) {
                 System.out.println("Wprowadzono zmiany");
+                showAlert(Alert.AlertType.INFORMATION, "Potwierdzenie", "Odrzucono udział w wydarzeniu uzytkownika" + name);
                 return true;
             } else {
                 System.out.println("Błąd");
                 return false;
             }
         }  catch (SQLException e){
-            e.printStackTrace();
-                return false;
-            }
+            showAlert(Alert.AlertType.ERROR, "Bląd", "Nie udalo się odrzucic udzialu");
+            return false;
+        }
 
     }
 
@@ -161,26 +165,27 @@ public class AdminService {
             eventId.setString(1, event);
             ResultSet eventRS = eventId.executeQuery();
             if(eventRS.next()) id_event = eventRS.getString(1);
-
+            System.out.println(id_event);
 
             PreparedStatement user = StartController.connection.prepareStatement("SELECT * FROM user WHERE name = ?");
             user.setString(1, name);
             ResultSet userRS = user.executeQuery();
             if(userRS.next())  id_user = userRS.getString(1);
-
+            System.out.println(id_user);
             PreparedStatement preparedStatement = StartController.connection.prepareStatement("UPDATE hash_event SET status = 'confirmed' WHERE id_event = ? && id_user = ?");
             preparedStatement.setString(1, id_event);
             preparedStatement.setString(2, id_user);
             Integer i = preparedStatement.executeUpdate();
             if (i == 1) {
                 System.out.println("Wprowadzono zmiany");
+                showAlert(Alert.AlertType.INFORMATION, "Potwierdzenie", "Przyjęto udział w wydarzeniu uzytkownika" + name);
                 return true;
             } else {
                 System.out.println("Błąd");
                 return false;
             }
         }  catch (SQLException e){
-            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Bląd", "NIe udalo się zaakceptowac udzialu.");
             return false;
         }
 
@@ -202,5 +207,12 @@ public class AdminService {
             e.printStackTrace();
             return false;
         }
+    }
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
