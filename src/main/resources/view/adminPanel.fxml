@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPanelController">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="10.0" prefWidth="10.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="193.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="106.0" minWidth="10.0" prefWidth="106.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="155.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="157.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.0" minWidth="10.0" prefWidth="102.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="10.0" prefWidth="18.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="102.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="64.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label alignment="CENTER" prefHeight="24.0" prefWidth="134.0" text="ADMIN PANEL" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <Label alignment="CENTER" prefHeight="60.0" prefWidth="177.0" text="Obsługa Użytkowników" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" prefHeight="85.0" prefWidth="268.0" text="Dodaj użytkownika" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <HBox alignment="CENTER" prefHeight="22.0" prefWidth="56.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <children>
+            <Button fx:id="bt_dodaj" alignment="CENTER" mnemonicParsing="false" onAction="#dodajAction" prefHeight="25.0" prefWidth="60.0" text="Dodaj" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+         <children>
+            <Button fx:id="bt_usun" mnemonicParsing="false" onAction="#usunAction" prefHeight="25.0" prefWidth="60.0" text="Usuń" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <children>
+            <Label alignment="CENTER" prefHeight="58.0" prefWidth="177.0" text="Usuń użytkownika" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <children>
+            <Label alignment="CENTER" prefHeight="53.0" prefWidth="178.0" text="Zresetuj hasło" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+         <children>
+            <Button fx:id="bt_reset" mnemonicParsing="false" onAction="#resetAction" prefHeight="25.0" prefWidth="60.0" text="Reset" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <children>
+            <Label alignment="CENTER" prefHeight="36.0" prefWidth="50.0" text="Login" />
+            <TextField fx:id="tf_loginUsun" prefHeight="40.0" prefWidth="100.0" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+         <children>
+            <Label alignment="CENTER" prefHeight="36.0" prefWidth="50.0" text="Login" />
+            <TextField fx:id="tf_loginReset" prefHeight="40.0" prefWidth="100.0" />
+         </children>
+      </HBox>
+      <Label alignment="CENTER" prefHeight="48.0" prefWidth="139.0" text="Obsługa zapisów" GridPane.columnIndex="3" GridPane.rowIndex="8">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="95.0" text="Wydarzenie" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+      <Label alignment="CENTER" prefHeight="37.0" prefWidth="130.0" text="Uczestnicy" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+      <Label alignment="CENTER" prefHeight="78.0" prefWidth="187.0" text="Działanie" GridPane.columnIndex="4" GridPane.rowIndex="9" />
+      <Label alignment="CENTER" prefHeight="57.0" prefWidth="168.0" text="Obsługa wydarzeń" GridPane.columnIndex="4" GridPane.rowIndex="2">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" prefHeight="73.0" prefWidth="167.0" text="Utwórz wydarzenie" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <Label alignment="CENTER" prefHeight="80.0" prefWidth="180.0" text="Edytuj wydarzenie" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+      <Label alignment="CENTER" prefHeight="102.0" prefWidth="206.0" text="Usuń wydarzenie" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+      <ComboBox fx:id="cb_events" prefWidth="150.0" promptText="Wybierz event" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
+         <children>
+            <Button fx:id="bt_utworzEvent" mnemonicParsing="false" onAction="#addEventAction" prefHeight="25.0" prefWidth="60.0" text="Utwórz" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
+         <children>
+            <Button fx:id="bt_edytujEvent" mnemonicParsing="false" onAction="#editEvent" prefHeight="25.0" prefWidth="60.0" text="Edytuj" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="6">
+         <children>
+            <Button fx:id="bt_usunEvent" mnemonicParsing="false" onAction="#usunEvent" prefHeight="25.0" prefWidth="60.0" text="Usuń" />
+         </children>
+      </HBox>
+      <ComboBox fx:id="cb_event" onAction="#selectEvent" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="10">
+         <children>
+            <Button fx:id="bt_confirm" mnemonicParsing="false" onAction="#confirmAction" prefHeight="42.0" prefWidth="154.0" text="Potwierdz">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="bt_reject" mnemonicParsing="false" onAction="#rejectAction" prefHeight="42.0" prefWidth="154.0" text="Odrzuć">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <ComboBox fx:id="cb_users" prefHeight="25.0" prefWidth="215.0" GridPane.columnIndex="3" GridPane.rowIndex="10">
+         <GridPane.margin>
+            <Insets left="5.0" right="5.0" />
+         </GridPane.margin>
+      </ComboBox>
+      <Button fx:id="bt_logout" mnemonicParsing="false" onAction="#logoutAction" text="Wyloguj" GridPane.columnIndex="5">
+         <GridPane.margin>
+            <Insets left="5.0" />
+         </GridPane.margin>
+      </Button>
+   </children>
+</GridPane>
